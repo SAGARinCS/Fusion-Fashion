@@ -1,0 +1,36 @@
+@import "tailwindcss";
+:root {
+--bg: 255 255 255;
+--card: 245 245 247;
+--text: 17 24 39;
+}
+
+
+.dark {
+--bg: 17 24 39;
+--card: 24 30 41;
+--text: 243 244 246;
+}
+
+
+body {
+background-color: rgb(var(--bg));
+color: rgb(var(--text));
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+
+/* small utility card style */
+.card {
+background-color: rgb(var(--card));
+}
+
+
+/* simple container */
+.container { @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl }
+
+
+/* app animation classes (optional) */
+.fade-in { animation: fadeIn .28s ease-in both }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px)} to { opacity:1; transform: translateY(0)} }
