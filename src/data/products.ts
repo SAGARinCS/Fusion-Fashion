@@ -7,6 +7,9 @@ import wmachine from "../assets/wmachine1.jpg"
 import shirt  from "../assets/shirt1.jpg"
 import medicine from "../assets/medicine1.jpg"
 import laptop from "../assets/laptop1.webp"
+import heels from "../assets/slipper1.jpg"
+import trimmer from "../assets/trimmer1.jpg"
+
 
 
 
@@ -87,5 +90,27 @@ images: [shirt],
 category: 'apparerl',
 rating: 4.4,
 stock: 12
+},
+{
+id: nanoid(),
+title: ' hair trimmer',
+slug: 'hair-trimmer',
+description: 'easy and comfortable to use',
+price: 222.0,
+images: [trimmer],
+category: 'electronics',
+rating: 4.9,
+stock: 200,
+},
+{
+id: nanoid(),
+title: ' womens slippers',
+slug: 'womens-slippers',
+description: 'stylish and comfortable pencil heels',
+price: 58.99,
+images: [heels],
+category: 'footwear',
+rating: 3.6,
+stock: 10,
 },
 ]
