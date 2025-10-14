@@ -1,52 +1,49 @@
 // src/store/cart.ts
-import { create } from "zustand";
-import type { Product } from "../types/types";
+import{ create} from "zustand";
 
-type CartItem = Product & { quantity: number };
+export interface CartItem {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+}
 
-type CartState = {
+export interface CartState {
   items: CartItem[];
-  addToCart: (product: Product) => void;
-  removeFromCart: (id: string) => void;
-  clearCart: () => void;
-  increaseQty: (id: string) => void;
-  decreaseQty: (id: string) => void;
-};
+  add: (item: CartItem) => void;
+  remove: (id: number) => void;
+  increaseQty: (id: number) => void;
+  decreaseQty: (id: number) => void;
+  clear: () => void;
+}
 
 export const useCartStore = create<CartState>((set) => ({
   items: [],
-  addToCart: (product) =>
+  add: (item) =>
     set((state) => {
-      const existing = state.items.find((item) => item.id === product.id);
+      const existing = state.items.find((i) => i.id === item.id);
       if (existing) {
         return {
-          items: state.items.map((item) =>
-            item.id === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
+          items: state.items.map((i) =>
+            i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
           ),
         };
-      } else {
-        return { items: [...state.items, { ...product, quantity: 1 }] };
       }
+      return { items: [...state.items, { ...item, quantity: 1 }] };
     }),
-  removeFromCart: (id) =>
-    set((state) => ({
-      items: state.items.filter((item) => item.id !== id),
-    })),
-  clearCart: () => set({ items: [] }),
+  remove: (id) =>
+    set((state) => ({ items: state.items.filter((i) => i.id !== id) })),
   increaseQty: (id) =>
     set((state) => ({
-      items: state.items.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      items: state.items.map((i) =>
+        i.id === id ? { ...i, quantity: i.quantity + 1 } : i
       ),
     })),
   decreaseQty: (id) =>
     set((state) => ({
-      items: state.items
-        .map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
-        )
-        .filter((item) => item.quantity > 0),
+      items: state.items.map((i) =>
+        i.id === id ? { ...i, quantity: Math.max(1, i.quantity - 1) } : i
+      ),
     })),
+  clear: () => set({ items: [] }),
 }));

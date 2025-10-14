@@ -4,7 +4,7 @@ import {ProductCard} from '../ui/ProductCard'
 
 
 export default function Home() {
-const [query, setQuery] = useState('')
+const [query] = useState('')
 const [category, setCategory] = useState<string | null>(null)
 const [sort, setSort] = useState<'popular' | 'price-asc' | 'price-desc' | 'newest'>('popular')
 
@@ -26,10 +26,10 @@ return (
 <div>
 <div className="flex items-center justify-between mb-6">
 <div>
-<h1 className="text-2xl font-bold">Featured products</h1>
-<p className="text-gray-500">Handpicked items you’ll love</p>
+<h1 className="text-2xl font-bold text-blue-100">Featured products</h1>
+<p className="text-blue-100">Handpicked items you’ll love</p>
 </div>
-<div className="flex gap-3">
+<div className=" font-bold text-blue-100">
 <select value={sort} onChange={e => setSort(e.target.value as any)} className="px-3 py-2 border rounded-md">
 <option value="popular">Popular</option>
 <option value="price-asc">Price: Low to High</option>

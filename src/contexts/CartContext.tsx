@@ -1,4 +1,4 @@
-// src/contexts/CartContext.tsx
+
 import React, { createContext, useState, useContext } from 'react';
 import type { Product } from '../types/types';
 
@@ -31,16 +31,20 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
-  const removeFromCart = (id: number) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
-  };
+const removeFromCart = (id: number) => {
+  setCart((prev) => prev.filter((item) => Number(item.id) !== id));
+};
 
-  const updateQuantity = (id: number, quantity: number) => {
-    if (quantity < 1) return removeFromCart(id);
-    setCart((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity } : item))
-    );
-  };
+
+const updateQuantity = (id: number, quantity: number) => {
+  if (quantity < 1) return removeFromCart(id);
+  setCart((prev) =>
+    prev.map((item) =>
+      Number(item.id) === id ? { ...item, quantity } : item
+    )
+  );
+};
+
 
   const getTotal = () => {
     return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
