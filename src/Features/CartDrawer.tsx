@@ -2,7 +2,7 @@
 // import { useCartStore } from "../store/cart";
 // import { motion, AnimatePresence } from "framer-motion";
 // import toast, { Toaster } from "react-hot-toast";
-// import { useNavigate } from "react-router-dom"; // React Router navigation
+// import { useNavigate } from "react-router-dom";
 
 // export default function CartDrawer({
 //   isOpen,
@@ -27,12 +27,17 @@
 //     setTimeout(() => {
 //       navigate("/checkout");
 //       setIsOpen(false);
-//     }, 500);
+//     }, 1000);
 //   };
 
 //   return (
 //     <>
-//       <Toaster position="top-right" />
+//       {/* Ensure toast is always on top */}
+//       <Toaster
+//         position="top-right"
+//         toastOptions={{ style: { zIndex: 9999 } }}
+//       />
+
 //       <AnimatePresence>
 //         {isOpen && (
 //           <>
@@ -167,16 +172,19 @@ export default function CartDrawer({
   const items = useCartStore((state) => state.items);
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  // ✅ Match store methods
   const { remove, increaseQty, decreaseQty, clear } = useCartStore();
 
   const handleCheckout = () => {
     if (items.length === 0) {
-      toast.error("Your cart is empty!");
+      toast.error("Your cart is empty!", { duration: 3000 });
       return;
     }
 
-    toast.success("Redirecting to checkout...");
+    const id = toast.loading("Redirecting to checkout...");
+
     setTimeout(() => {
+      toast.dismiss(id); // ✅ Remove the loading toast
       navigate("/checkout");
       setIsOpen(false);
     }, 1000);
@@ -184,12 +192,7 @@ export default function CartDrawer({
 
   return (
     <>
-      {/* Ensure toast is always on top */}
-      <Toaster
-        position="top-right"
-        toastOptions={{ style: { zIndex: 9999 } }}
-      />
-
+      <Toaster position="top-right" />
       <AnimatePresence>
         {isOpen && (
           <>
@@ -258,7 +261,7 @@ export default function CartDrawer({
                             <button
                               onClick={() => {
                                 remove(item.id);
-                                toast.error("Item removed");
+                                toast.error("Item removed", { duration: 1500 });
                               }}
                               className="px-2 py-0.5 bg-red-500 text-white rounded"
                             >
@@ -286,7 +289,7 @@ export default function CartDrawer({
                     <button
                       onClick={() => {
                         clear();
-                        toast("Cart cleared");
+                        toast("Cart cleared", { duration: 1500 });
                       }}
                       className="flex-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 py-1 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition"
                     >

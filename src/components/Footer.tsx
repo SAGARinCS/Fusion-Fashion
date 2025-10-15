@@ -1,71 +1,78 @@
+import esewa from "../assets/payments/esewa.jpg"
+import visa from "../assets/payments/visa.jpg"
+import khalti from "../assets/payments/khalti.jpg"
+import mastercard from "../assets/payments/mastercard.jpg"
+import fonepay from "../assets/payments/fonepay.jpg"
+import { motion } from "framer-motion";
+
 
 
 
 export default function Footer() {
-  const year = new Date().getFullYear();
+  const paymentLogos = [
+    { src: visa, alt: "Visa" },
+    { src: mastercard, alt: "MasterCard" },
+    { src: esewa, alt: "eSewa" },
+    { src: khalti, alt: "Khalti" },
+    { src: fonepay, alt: "Fonepay" },
+  ];
 
   return (
-    <footer className="bg-gradient-to-r from-gray-100 via-white to-gray-100 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 border-t border-gray-300 dark:border-gray-800 mt-16">
-      <div className="container mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10 text-gray-700 dark:text-gray-300">
-        
-       
-        <div>
-          <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-wide mb-3">
-            Fusion<span className="text-blue-500">Fashion</span>
-          </h2>
-          <p className="text-sm leading-relaxed">
-            Elevate your wardrobe with trendsetting styles and timeless classics.  
-            Designed with passion, worn with confidence.
-          </p>
+    <footer className="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-t border-gray-200 dark:border-gray-800 mt-10">
+      <div className="container mx-auto px-6 py-10">
+        {/* Main Footer Content */}
+        <div className="grid md:grid-cols-3 gap-8 text-center md:text-left">
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Fusion-Fashion</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Redefining modern fashion with comfort, confidence, and creativity.
+            </p>
+          </div>
+
+          <div>
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Quick Links</h4>
+            <ul className="space-y-2 text-sm">
+              <li><a href="/" className="hover:text-blue-500 transition">Home</a></li>
+              <li><a href="/products" className="hover:text-blue-500 transition">Products</a></li>
+              <li><a href="/about" className="hover:text-blue-500 transition">About</a></li>
+              <li><a href="/contact" className="hover:text-blue-500 transition">Contact</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Contact Us</h4>
+            <p className="text-sm">📍 Butwal, Nepal</p>
+            <p className="text-sm">📞 +977-9812345678</p>
+            <p className="text-sm">✉️ support@fusionfashion.com</p>
+          </div>
         </div>
 
-        
-        <div>
-          <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
-            Quick Links
-          </h3>
-          <ul className="space-y-2 text-sm">
-            {["Home", "Products", "About", "Contact"].map((link) => (
-              <li key={link}>
-                <a
-                  href={`/#${link.toLowerCase()}`}
-                  className="hover:text-blue-500 dark:hover:text-blue-400 transition"
-                >
-                  {link}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* Divider */}
+        <div className="border-t border-gray-300 dark:border-gray-700 my-6"></div>
 
-        
-        <div>
-          <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
-            Connect With Us
-          </h3>
-          <div className="flex space-x-4">
-            {[
-              { name: "Facebook", icon: "fa-facebook" },
-              { name: "Instagram", icon: "fa-instagram" },
-              { name: "Twitter", icon: "fa-x-twitter" },
-              { name: "LinkedIn", icon: "fa-linkedin" },
-            ].map(({ name, icon }) => (
-              <a
-                key={name}
-                href="#"
-                className="text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 text-xl transition"
-                aria-label={name}
-              >
-                <i className={`fa-brands ${icon}`}></i>
-              </a>
+        {/* Payment Partners */}
+        <div className="text-center">
+          <h5 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-4">Payment Partners</h5>
+          <div className="flex flex-wrap justify-center items-center gap-6">
+            {paymentLogos.map((logo, index) => (
+              <motion.img
+                key={index}
+                src={logo.src}
+                alt={logo.alt}
+                className="h-10 w-auto object-contain"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+              />
             ))}
           </div>
         </div>
-      </div>
 
-      
-      <div className="border-t border-gray-300 dark:border-gray-800 mt-8 py-4 text-center text-xs text-gray-500 dark:text-gray-400">
-        © {year} <span className="font-semibold text-gray-800 dark:text-gray-200">Fusion-Fashion</span> • Designed with ❤️ by Sagar Pandey
+        {/* Bottom Note */}
+        <div className="text-center text-sm mt-6 text-gray-500 dark:text-gray-400">
+          © {new Date().getFullYear()} Fusion-Fashion. All rights reserved.
+        </div>
       </div>
     </footer>
   );
