@@ -2,7 +2,7 @@ import  { useMemo, useState } from 'react'
 import { PRODUCTS } from '../data/products'
 import {ProductCard} from '../ui/ProductCard'
 
-
+//this is home
 export default function Home() {
 const [query] = useState('')
 const [category, setCategory] = useState<string | null>(null)
